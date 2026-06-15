@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CatalogService } from '../../core/services/catalog.service';
 import { Glass } from '../../core/mocks/glasses.mock';
@@ -7,6 +7,7 @@ import { Glass } from '../../core/mocks/glasses.mock';
   selector: 'app-landing',
   standalone: true,
   imports: [RouterLink],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './landing.component.html',
 })
 export class LandingComponent implements OnInit {

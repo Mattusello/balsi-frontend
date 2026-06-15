@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 interface FaceShape {
@@ -12,6 +12,7 @@ interface FaceShape {
   selector: 'app-onboarding',
   standalone: true,
   imports: [RouterLink],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './onboarding.component.html',
 })
 export class OnboardingComponent {

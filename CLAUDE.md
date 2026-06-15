@@ -5,43 +5,60 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm start              # dev server at http://localhost:4200
-npm run build          # production build → dist/balsi-frontend
-npm run build -- --configuration development   # dev build (source maps, no budgets)
-npm test               # unit tests via Karma
-npx ng generate component path/to/name --standalone   # scaffold a standalone component
+npm start              # genera CSS Tailwind + avvia dev server (http://localhost:4200)
+npm run build          # genera CSS Tailwind + production build → dist/balsi-frontend
+npm run build -- --configuration development  # dev build (source maps)
+npm run tw:build       # solo step Tailwind: tailwind.css → src/tailwind.generated.css
+npm run tw:watch       # Tailwind in watch mode (usato internamente da npm start)
+npm test               # unit test via Karma
+npx ng generate component path/to/name --standalone  # scaffolda un componente
 ```
 
 ## Architecture
 
-**Stack:** Angular 19 (standalone, esbuild builder) · Tailwind CSS v3 · SCSS
+**Stack:** Angular 22 · TypeScript 6 · Tailwind CSS v4 · SCSS · Node 24
 
-**Tailwind v3 setup** — configured via `tailwind.config.js` at the project root. Content scanning is set to `src/**/*.{html,ts,scss}`. Global entry is `src/tailwind.css` (contains `@tailwind base/components/utilities`), listed first in `angular.json`'s `styles` array. PostCSS plugin is `tailwindcss` + `autoprefixer` in `postcss.config.js`.
+### Tailwind v4 setup
 
-**Custom design tokens** (usable as Tailwind classes like `bg-oliva-balsi`, `text-teal-balsi`):
-- `oliva-balsi` `#8DAA8A` — primary CTA, borders, hover
-- `teal-balsi` `#2C4C5E` — headings, logo
-- `accent-copper` `#B78D6D` — cart icon, accents
-- `base-dark` `#212121` — body text
-- `base-light` `#FFFFFF` — page background
+Tailwind v4 **non usa `tailwind.config.js`** e non si integra via PostCSS con Angular 22 (esbuild risolve `@import "tailwindcss"` prima che il plugin PostCSS possa agire). La soluzione adottata:
 
-**Routing** — lazy-loaded standalone components via `loadComponent` in `src/app/app.routes.ts`. Add new pages there without touching any module.
+1. **`tailwind.css`** (project root) — contiene `@import "tailwindcss"`, le direttive `@source` per la scansione dei template, e il blocco `@theme` con i design token.
+2. **`@tailwindcss/cli`** genera `src/tailwind.generated.css` leggendo `tailwind.css`. Angular include questo file già processato.
+3. **`postcss.config.js`** — solo `autoprefixer`, nessun plugin Tailwind.
 
-**Folder conventions:**
+**Per aggiungere nuovi componenti**: assicurarsi che i file `.html`/`.ts` siano sotto `src/app/` (già coperto da `@source`). Dopo aver aggiunto classi nuove, il watch (`npm start`) rigenera automaticamente `src/tailwind.generated.css`.
+
+### Design token (classi Tailwind disponibili)
+
+| Token | Hex | Uso |
+|---|---|---|
+| `oliva-balsi` | `#8DAA8A` | CTA primarie, bordi, hover |
+| `teal-balsi` | `#2C4C5E` | Titoli, logo |
+| `accent-copper` | `#B78D6D` | Icona carrello, accenti |
+| `base-dark` | `#212121` | Testo body |
+| `base-light` | `#FFFFFF` | Sfondo pagina |
+
+### Routing
+
+Lazy-loaded standalone via `loadComponent` in `src/app/app.routes.ts`. Aggiungere route lì senza toccare moduli.
+
+### Folder conventions
+
 ```
 src/app/
   core/
-    mocks/          ← static mock data (glasses.mock.ts + Glass interface)
-    services/       ← injectable services (catalog.service.ts returns Observable via of() + delay(600))
+    mocks/       ← GLASSES_MOCK + interfaccia Glass
+    services/    ← CatalogService (Observable + delay 600ms)
   shared/
-    components/     ← layout-level components (navbar, footer)
+    components/  ← Navbar (scroll + mobile), Footer
   features/
-    landing/        ← home page (hero + bestseller grid)
-    onboarding/     ← face-shape wizard (signal-based step state)
+    landing/     ← Hero + bestseller grid + CTA banner
+    onboarding/  ← Wizard forma viso (signal-based, 2 step)
 ```
 
-**Patterns to follow:**
-- Angular control flow syntax (`@if`, `@for`, `@switch`) — not structural directives
-- `signal()` / `signal.set()` / `signal.update()` for component state
-- Inline Tailwind utility classes — no component `.scss` styles unless truly necessary
-- Font: Poppins loaded from Google Fonts in `src/index.html`
+### Patterns Angular 22
+
+- `ChangeDetectionStrategy.Eager` su tutti i componenti (default v22, aggiunto dalla migration automatica)
+- `signal()` / `signal.set()` / `signal.update()` per stato locale
+- Template control flow: `@if`, `@for`, `@switch` (non direttive strutturali)
+- Font Poppins caricato da Google Fonts in `src/index.html`
