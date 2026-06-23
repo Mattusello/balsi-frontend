@@ -6,11 +6,15 @@
 @theme {
   --font-sans: 'Poppins', 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-  --color-oliva-balsi:       #8DAA8A;
-  --color-oliva-balsi-hover: #7A9977;
-  --color-teal-balsi:        #2C4C5E;
-  --color-teal-balsi-dark:   #1e3547;
-  --color-accent-copper:     #B78D6D;
-  --color-base-dark:         #212121;
-  --color-base-light:        #FFFFFF;
+  /* Palette ufficiale UI Kit Studio Ottico Balsi V1.0.
+     I nomi storici dei token sono mantenuti per evitare churn nei template;
+     i valori puntano ai ruoli ufficiali del kit. */
+  --color-oliva-balsi:       #2E8B75;  /* Accento Vivace — CTA, link, icone attive */
+  --color-oliva-balsi-hover: #25735F;  /* hover dell'accento */
+  --color-teal-balsi:        #0C3831;  /* Primario Scuro — titoli, sfondi scuri */
+  --color-teal-balsi-dark:   #082722;  /* variante più scura del primario */
+  --color-accent-copper:     #6E9A8E;  /* Secondario Soft — bordi, divisori, icone secondarie */
+  --color-base-dark:         #222625;  /* Testo Scuro — body text */
+  --color-base-light:        #FFFFFF;  /* sfondo pagina */
+  --color-neutro-chiaro:     #F4F7F6;  /* Neutro Chiaro — sfondi sezioni, card, input disattivati */
 }

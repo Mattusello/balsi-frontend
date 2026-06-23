@@ -30,13 +30,20 @@ Tailwind v4 **non usa `tailwind.config.js`** e non si integra via PostCSS con An
 
 ### Design token (classi Tailwind disponibili)
 
-| Token | Hex | Uso |
-|---|---|---|
-| `oliva-balsi` | `#8DAA8A` | CTA primarie, bordi, hover |
-| `teal-balsi` | `#2C4C5E` | Titoli, logo |
-| `accent-copper` | `#B78D6D` | Icona carrello, accenti |
-| `base-dark` | `#212121` | Testo body |
-| `base-light` | `#FFFFFF` | Sfondo pagina |
+Allineati alla **Palette ufficiale UI Kit Studio Ottico Balsi V1.0**. I nomi storici dei token sono mantenuti per compatibilità con i template esistenti; i valori puntano ai ruoli ufficiali del kit.
+
+| Token | Hex | Ruolo kit | Uso |
+|---|---|---|---|
+| `oliva-balsi` | `#2E8B75` | Accento Vivace | CTA primarie, link, highlight, icone attive |
+| `oliva-balsi-hover` | `#25735F` | — | hover dell'accento |
+| `teal-balsi` | `#0C3831` | Primario Scuro | Titoli, sfondi scuri, logo |
+| `teal-balsi-dark` | `#082722` | — | variante più scura del primario |
+| `accent-copper` | `#6E9A8E` | Secondario Soft | Bordi, divisori, icone secondarie |
+| `base-dark` | `#222625` | Testo Scuro | Testo body |
+| `base-light` | `#FFFFFF` | — | Sfondo pagina |
+| `neutro-chiaro` | `#F4F7F6` | Neutro Chiaro | Sfondi sezioni, contenitori card, input disattivati |
+
+Asset di brand (logo orizzontale, impilato negativo, favicon/app-icon) sono inline come SVG nei componenti `navbar`, `footer` e in `public/favicon.svg`, come da UI Kit.
 
 ### Routing
 
