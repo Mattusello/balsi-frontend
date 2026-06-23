@@ -1,0 +1,104 @@
+<section class="min-h-screen pt-28 pb-24 bg-base-light">
+  <div class="w-full px-6 lg:px-12 2xl:px-20">
+
+    <!-- Header -->
+    <div class="mb-10">
+      <nav class="flex items-center gap-2 text-xs text-gray-400 mb-4" aria-label="Breadcrumb">
+        <a routerLink="/" class="hover:text-oliva-balsi transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-base-dark font-medium">Catalogo</span>
+      </nav>
+
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <span class="text-xs font-semibold tracking-[0.25em] uppercase text-oliva-balsi">Catalogo</span>
+          <h1 class="text-3xl lg:text-4xl font-bold text-base-dark mt-2 tracking-tight">{{ title() }}</h1>
+        </div>
+
+        <!-- Filtro collezioni -->
+        <div class="flex flex-wrap gap-2">
+          <a
+            routerLink="/catalogo"
+            class="px-4 py-2 text-sm font-medium rounded-full border transition-colors"
+            [class]="!collezione()
+              ? 'bg-teal-balsi text-white border-teal-balsi'
+              : 'border-gray-200 text-base-dark hover:border-oliva-balsi hover:text-oliva-balsi'"
+          >Tutti</a>
+          @for (c of [['uomo','Uomo'],['donna','Donna'],['kids','Kids']]; track c[0]) {
+            <a
+              routerLink="/catalogo"
+              [queryParams]="{ collezione: c[0] }"
+              class="px-4 py-2 text-sm font-medium rounded-full border transition-colors"
+              [class]="collezione() === c[0]
+                ? 'bg-teal-balsi text-white border-teal-balsi'
+                : 'border-gray-200 text-base-dark hover:border-oliva-balsi hover:text-oliva-balsi'"
+            >{{ c[1] }}</a>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    @if (loading()) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        @for (i of [1, 2, 3]; track i) {
+          <div class="rounded-xl bg-neutro-chiaro animate-pulse h-96"></div>
+        }
+      </div>
+    } @else if (glasses().length === 0) {
+      <div class="text-center py-24">
+        <p class="text-gray-400">Nessun modello disponibile per questa collezione.</p>
+        <a routerLink="/catalogo" class="inline-block mt-4 text-sm font-semibold text-oliva-balsi hover:text-oliva-balsi-hover">← Vedi tutti i modelli</a>
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        @for (glass of glasses(); track glass.id) {
+          <a
+            [routerLink]="['/catalogo', glass.id]"
+            class="group relative rounded-xl overflow-hidden border border-gray-100 hover:border-oliva-balsi/40 bg-white hover:shadow-xl hover:shadow-oliva-balsi/10 transition-all duration-300"
+          >
+            <!-- Image con swap in hover -->
+            <div class="relative overflow-hidden bg-neutro-chiaro h-72">
+              <!-- Immagine principale -->
+              <img
+                [src]="glass.image_url"
+                [alt]="glass.name"
+                loading="lazy"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+              />
+              <!-- Immagine alternativa zoomata (visibile in hover) -->
+              <img
+                [src]="glass.hover_image_url"
+                [alt]="glass.name + ' — dettaglio'"
+                loading="lazy"
+                aria-hidden="true"
+                class="absolute inset-0 w-full h-full object-cover scale-125 opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
+              />
+              <span class="absolute top-3 left-3 z-10 px-2 py-1 text-[10px] font-bold tracking-widest uppercase bg-white/90 text-teal-balsi rounded">
+                {{ glass.category }}
+              </span>
+            </div>
+            <!-- Info -->
+            <div class="p-5">
+              <p class="text-[11px] font-medium tracking-widest uppercase text-gray-400 mb-1">{{ glass.brand }}</p>
+              <h3 class="text-base font-bold text-base-dark mb-2">{{ glass.name }}</h3>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-teal-balsi">€ {{ glass.price }}</span>
+                <!-- Swatch colori -->
+                <div class="flex items-center gap-1.5">
+                  @for (color of glass.colors; track color.name) {
+                    <span
+                      class="w-3.5 h-3.5 rounded-full border border-gray-200"
+                      [style.background-color]="color.swatch"
+                      [title]="color.name"
+                    ></span>
+                  }
+                </div>
+              </div>
+            </div>
+          </a>
+        }
+      </div>
+    }
+  </div>
+</section>

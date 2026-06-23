@@ -17,4 +17,12 @@
   --color-base-dark:         #222625;  /* Testo Scuro — body text */
   --color-base-light:        #FFFFFF;  /* sfondo pagina */
   --color-neutro-chiaro:     #F4F7F6;  /* Neutro Chiaro — sfondi sezioni, card, input disattivati */
+
+  /* Animazioni custom */
+  --animate-kenburns: kenburns 22s ease-in-out infinite alternate;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1.05) translate3d(0, 0, 0); }
+  to   { transform: scale(1.18) translate3d(-1.5%, -1.5%, 0); }
 }
