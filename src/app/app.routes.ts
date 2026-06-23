@@ -17,6 +17,11 @@ export const routes: Routes = [
       import('./features/landing/landing.component').then(m => m.LandingComponent),
   },
   {
+    path: 'contatti',
+    loadComponent: () =>
+      import('./features/contact/contact.component').then(m => m.ContactComponent),
+  },
+  {
     path: '**',
     redirectTo: '',
   },
