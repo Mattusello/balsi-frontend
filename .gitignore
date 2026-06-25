@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 # Claude Code skills (contenuto reinstallabile da skills-lock.json)
-/.agents/skills/
+# /.agents/skills/
