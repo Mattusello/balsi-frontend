@@ -1,8 +1,82 @@
-html, body {
+/* ── Base globale Studio Ottico Balsi ─────────────────────────────────
+   tailwind.generated.css è caricato prima di questo file: qui solo
+   reset/base raw CSS, niente @apply (questo foglio non passa da Tailwind). */
+
+html {
   scroll-behavior: smooth;
+  /* compensa la navbar fixed per gli anchor in-page */
+  scroll-padding-top: 5rem;
 }
 
-* {
+body {
+  font-family: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+  color: #222625;
+  background: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Titoli display: tracking contenuto, mai sotto -0.04em; line-balance. */
+h1, h2, h3 {
+  font-family: 'Bricolage Grotesque', 'Hanken Grotesk', sans-serif;
+  text-wrap: balance;
+}
+p { text-wrap: pretty; }
+
+/* Selezione testo on-brand. */
+::selection {
+  background: #2E8B75;
+  color: #ffffff;
+}
+
+/* Focus visibile coerente (ring smeraldo) su tutto il sito. */
+:focus-visible {
+  outline: 2px solid #2E8B75;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+/* Scrollbar discreta in tinta brand (WebKit). */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: #F4F7F6; }
+::-webkit-scrollbar-thumb {
+  background: #6E9A8E;
+  border: 3px solid #F4F7F6;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: #2E8B75; }
+
+/* Barra di avanzamento scroll (alimentata da AppComponent). */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(var(--scroll, 0));
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, #2E8B75, #5CC9A7);
+  z-index: 90;
+  pointer-events: none;
+}
+
+/* ── Reduced motion: alternativa per OGNI animazione ─────────────────
+   Le animazioni infinite si fermano, i reveal/maschere diventano stato
+   finale istantaneo. Il contenuto resta sempre pienamente visibile. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .reveal-mask { clip-path: inset(-15% 0 -15% 0) !important; }
+  .scroll-progress { display: none; }
 }

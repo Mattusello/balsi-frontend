@@ -3,11 +3,12 @@ import { DecimalPipe } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { CatalogService } from '../../core/services/catalog.service';
 import { Glass } from '../../core/mocks/glasses.mock';
+import { TiltDirective } from '../../shared/directives/tilt.directive';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [RouterLink, DecimalPipe],
+  imports: [RouterLink, DecimalPipe, TiltDirective],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './product-detail.component.html',
 })

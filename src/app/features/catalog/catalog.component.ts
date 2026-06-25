@@ -3,6 +3,8 @@ import { RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { CatalogService } from '../../core/services/catalog.service';
 import { Collezione, Glass } from '../../core/mocks/glasses.mock';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
+import { TiltDirective } from '../../shared/directives/tilt.directive';
 
 const COLLEZIONI: Record<Collezione, string> = {
   uomo: 'Collezione Uomo',
@@ -13,7 +15,7 @@ const COLLEZIONI: Record<Collezione, string> = {
 @Component({
   selector: 'app-catalog',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, RevealDirective, TiltDirective],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './catalog.component.html',
 })

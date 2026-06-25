@@ -1,140 +1,125 @@
-<div class="min-h-screen bg-neutro-chiaro flex items-center justify-center py-20 px-4">
-  <div class="w-full max-w-2xl">
+<section class="relative min-h-screen overflow-hidden bg-gradient-to-b from-teal-balsi to-forest-900 text-white flex items-center justify-center pt-28 lg:pt-32 pb-20 px-5">
+  <!-- Motivo ottico -->
+  <div class="lens-ring animate-lens-spin absolute -right-32 -top-20 w-[36rem] h-[36rem] opacity-20 pointer-events-none" aria-hidden="true"></div>
+  <div class="lens-glow animate-glow-pulse absolute -left-20 bottom-10 w-80 h-80 rounded-full opacity-25 pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative w-full max-w-3xl">
+
+    <!-- Progress -->
+    <div class="flex items-center justify-center gap-2.5 mb-8">
+      <span class="h-1 rounded-full transition-all duration-500 ease-out-expo" [class]="step() >= 1 ? 'w-10 bg-emerald-glow' : 'w-6 bg-white/20'"></span>
+      <span class="h-1 rounded-full transition-all duration-500 ease-out-expo" [class]="step() >= 2 ? 'w-10 bg-emerald-glow' : 'w-6 bg-white/20'"></span>
+    </div>
 
     @if (step() === 1) {
-      <!-- ── Step 1: Forma del viso ─────────────────────────────────────── -->
+      <!-- ── Step 1: Forma del viso ──────────────────────────────────── -->
       <div class="text-center mb-10">
-        <!-- Progress -->
-        <div class="flex items-center justify-center gap-2 mb-8">
-          <div class="w-8 h-1 rounded-full bg-oliva-balsi"></div>
-          <div class="w-8 h-1 rounded-full bg-gray-200"></div>
-          <div class="w-8 h-1 rounded-full bg-gray-200"></div>
-        </div>
-        <span class="text-xs font-semibold tracking-[0.25em] uppercase text-oliva-balsi">Passo 1 di 3</span>
-        <h1 class="text-3xl lg:text-4xl font-bold text-base-dark mt-3 mb-2 tracking-tight">
-          Qual è la forma del tuo viso?
-        </h1>
-        <p class="text-gray-400 text-sm">Seleziona la silhouette più vicina alla tua</p>
+        <span class="text-[12px] font-medium tracking-[0.26em] uppercase text-emerald-glow">Passo 1 di 2</span>
+        <h1 class="font-display text-3xl lg:text-5xl font-bold mt-3 mb-3 tracking-[-0.02em]">Qual è la forma del tuo viso?</h1>
+        <p class="text-white/60">Scegli la silhouette più vicina alla tua: ti consigliamo le montature giuste.</p>
       </div>
 
-      <!-- Options -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        @for (shape of faceShapes; track shape.id) {
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-9">
+        @for (sh of faceShapes; track sh.id) {
           <button
-            (click)="select(shape.id)"
-            class="group relative flex flex-col items-center gap-4 p-6 rounded-xl border-2 bg-white transition-all duration-200 cursor-pointer
-              hover:border-oliva-balsi hover:shadow-lg hover:shadow-oliva-balsi/10 hover:-translate-y-0.5"
-            [class]="selectedShape() === shape.id
-              ? 'border-oliva-balsi shadow-lg shadow-oliva-balsi/15 -translate-y-0.5'
-              : 'border-gray-200'"
+            (click)="select(sh.id)"
+            class="group relative flex flex-col items-center gap-4 p-7 rounded-2xl border bg-white/[0.04] backdrop-blur-sm transition-all duration-300 ease-out-expo cursor-pointer hover:-translate-y-1 hover:bg-white/[0.08]"
+            [class]="selectedShape() === sh.id
+              ? 'border-emerald-glow bg-white/[0.08] shadow-[0_20px_50px_-25px_rgba(92,201,167,0.8)]'
+              : 'border-white/12'"
+            [attr.aria-pressed]="selectedShape() === sh.id"
           >
-            <!-- Check Badge -->
-            @if (selectedShape() === shape.id) {
-              <span class="absolute top-3 right-3 w-5 h-5 bg-oliva-balsi rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            @if (selectedShape() === sh.id) {
+              <span class="absolute top-3.5 right-3.5 w-6 h-6 bg-emerald-glow rounded-full flex items-center justify-center">
+                <svg class="h-3.5 w-3.5 text-teal-balsi" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </span>
             }
-
-            <!-- SVG Face Shape -->
-            <svg viewBox="0 0 100 100" class="w-16 h-16 transition-colors duration-200"
-              [attr.fill]="selectedShape() === shape.id ? '#8DAA8A' : '#E5E7EB'"
-              [attr.stroke]="selectedShape() === shape.id ? '#7A9977' : '#D1D5DB'"
-              stroke-width="1.5">
-              <path [attr.d]="shape.svgPath" />
+            <svg viewBox="0 0 100 100" class="w-16 h-16 transition-all duration-300"
+              [attr.fill]="selectedShape() === sh.id ? 'rgba(92,201,167,0.18)' : 'rgba(255,255,255,0.06)'"
+              [attr.stroke]="selectedShape() === sh.id ? '#5CC9A7' : 'rgba(255,255,255,0.4)'"
+              stroke-width="2">
+              <path [attr.d]="sh.svgPath" />
             </svg>
-
-            <!-- Label -->
             <div class="text-center">
-              <p class="font-bold text-base-dark text-sm" [class]="selectedShape() === shape.id ? 'text-oliva-balsi' : ''">
-                {{ shape.label }}
-              </p>
-              <p class="text-xs text-gray-400 mt-0.5">{{ shape.description }}</p>
+              <p class="font-display text-lg font-bold tracking-tight" [class]="selectedShape() === sh.id ? 'text-emerald-glow' : 'text-white'">{{ sh.label }}</p>
+              <p class="text-xs text-white/50 mt-0.5">{{ sh.description }}</p>
             </div>
           </button>
         }
       </div>
 
-      <!-- Next -->
-      <div class="flex justify-end">
+      <div class="flex justify-center sm:justify-end">
         <button
           (click)="next()"
           [disabled]="!selectedShape()"
-          class="inline-flex items-center gap-2.5 px-7 py-3.5 bg-oliva-balsi text-white font-semibold text-sm tracking-wide rounded transition-all duration-200
-            disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-oliva-balsi
-            hover:bg-oliva-balsi-hover hover:-translate-y-0.5 shadow-md shadow-oliva-balsi/20"
+          class="sheen inline-flex items-center gap-2.5 px-8 py-4 bg-oliva-balsi text-white font-semibold text-sm tracking-wide rounded-full transition-all duration-300 ease-out-expo disabled:opacity-30 disabled:cursor-not-allowed hover:enabled:bg-oliva-balsi-hover hover:enabled:-translate-y-0.5 shadow-[0_18px_45px_-22px_rgba(46,139,117,0.9)]"
         >
           Continua
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
         </button>
       </div>
     }
 
-    @if (step() === 2) {
-      <!-- ── Step 2: Risultato / Placeholder ───────────────────────────── -->
-      <div class="text-center">
-        <!-- Progress -->
-        <div class="flex items-center justify-center gap-2 mb-8">
-          <div class="w-8 h-1 rounded-full bg-oliva-balsi"></div>
-          <div class="w-8 h-1 rounded-full bg-oliva-balsi"></div>
-          <div class="w-8 h-1 rounded-full bg-gray-200"></div>
+    @if (step() === 2 && shape(); as sh) {
+      <!-- ── Step 2: Risultato ───────────────────────────────────────── -->
+      <div class="text-center mb-8">
+        <span class="text-[12px] font-medium tracking-[0.26em] uppercase text-emerald-glow">Passo 2 di 2</span>
+        <h1 class="font-display text-3xl lg:text-5xl font-bold mt-3 tracking-[-0.02em]">
+          Viso <span class="text-emerald-glow capitalize">{{ sh.label.toLowerCase() }}</span>
+        </h1>
+      </div>
+
+      <div class="rounded-2xl bg-white text-base-dark p-8 lg:p-10">
+        <div class="flex items-start gap-5">
+          <span class="shrink-0 w-16 h-16 rounded-2xl bg-oliva-balsi/10 flex items-center justify-center">
+            <svg viewBox="0 0 100 100" class="w-9 h-9" fill="rgba(46,139,117,0.15)" stroke="#2E8B75" stroke-width="3" aria-hidden="true">
+              <path [attr.d]="sh.svgPath" />
+            </svg>
+          </span>
+          <div>
+            <p class="text-[11px] font-semibold tracking-[0.18em] uppercase text-oliva-balsi mb-2">Il nostro consiglio</p>
+            <p class="text-base-dark/75 leading-relaxed">{{ sh.advice }}</p>
+          </div>
         </div>
 
-        <div class="bg-white border border-oliva-balsi/20 rounded-2xl p-10 shadow-xl shadow-oliva-balsi/5">
-          <div class="w-16 h-16 bg-oliva-balsi/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-oliva-balsi" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a routerLink="/catalogo" class="sheen flex-1 inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-oliva-balsi text-white text-sm font-semibold rounded-full hover:bg-oliva-balsi-hover transition-colors">
+            Vedi i modelli consigliati
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </a>
+          <button (click)="restart()" class="inline-flex items-center justify-center px-6 py-4 rounded-full border border-black/10 text-sm font-medium text-base-dark hover:border-teal-balsi hover:text-teal-balsi transition-colors">
+            Ricomincia
+          </button>
+        </div>
+      </div>
+
+      <!-- Visita optometrica -->
+      <div class="mt-5 rounded-2xl bg-white/[0.05] backdrop-blur-sm border border-white/10 p-8 text-left">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-10 h-10 rounded-full bg-emerald-glow/15 flex items-center justify-center shrink-0">
+            <svg class="h-5 w-5 text-emerald-glow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-          </div>
-          <span class="text-xs font-semibold tracking-[0.2em] uppercase text-oliva-balsi">Ottima scelta!</span>
-          <h2 class="text-2xl font-bold text-base-dark mt-2 mb-3">
-            Viso <span class="text-oliva-balsi capitalize">{{ selectedShape() }}</span> rilevato
-          </h2>
-          <p class="text-gray-400 text-sm max-w-sm mx-auto leading-relaxed mb-8">
-            Per la tua forma del viso consigliamo montature con angoli contrastanti per esaltare i tuoi tratti naturali.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-3 justify-center">
-            <button
-              (click)="step.set(1)"
-              class="px-5 py-3 border border-gray-200 text-sm font-medium text-base-dark rounded hover:border-teal-balsi hover:text-teal-balsi transition-colors"
-            >
-              ← Ricomincia
-            </button>
-            <a
-              routerLink="/catalogo"
-              class="px-6 py-3 bg-oliva-balsi text-white text-sm font-semibold rounded hover:bg-oliva-balsi-hover transition-colors"
-            >
-              Vedi i modelli consigliati →
-            </a>
-          </div>
+          </span>
+          <h2 class="font-display text-xl font-bold tracking-tight">Vuoi essere sicuro? Vieni in sede.</h2>
         </div>
-
-        <!-- Visita optometrica -->
-        <div class="mt-6 bg-white border border-gray-200 rounded-2xl p-8 text-left">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="w-10 h-10 bg-oliva-balsi/10 rounded-full flex items-center justify-center shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-oliva-balsi" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </span>
-            <h3 class="text-xl font-bold text-teal-balsi tracking-tight">Visita optometrica in sede</h3>
-          </div>
-          <div class="space-y-4 text-sm text-gray-500 leading-relaxed">
-            <p>
-              Presso l'Ottica Balsi si effettuano test della vista gratuiti e senza impegno da parte di optometristi esperti e qualificati. La misurazione viene fatta grazie all'utilizzo di apparecchiature sofisticate e moderne che assicurano un risultato affidabile e sicuro. In base all'esito del test, è possibile individuare i più comuni difetti visivi come miopia, astigmatismo o ipermetropia che possono essere corretti mediante l'uso dell'adeguato paio di occhiali.
-            </p>
-            <p>
-              Se è passato almeno un anno dall'ultimo controllo della vista o se notate un abbassamento della capacità visiva, venite a trovarci in negozio per effettuare una visita.
-            </p>
-          </div>
-        </div>
+        <p class="text-white/65 leading-relaxed">
+          Da Balsi l'esame della vista è gratuito e senza impegno: optometristi qualificati e strumentazione moderna individuano miopia, astigmatismo o ipermetropia. Se è passato più di un anno dall'ultimo controllo, prenota una visita.
+        </p>
+        <a routerLink="/contatti" class="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-emerald-glow hover:text-white transition-colors">
+          Prenota una visita
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
       </div>
     }
-
   </div>
-</div>
+</section>

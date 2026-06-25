@@ -1,104 +1,146 @@
 <nav
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-  [class]="scrolled() ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100' : 'bg-white/80 backdrop-blur-sm'"
+  class="fixed top-0 inset-x-0 z-50 transition-[background-color,backdrop-filter,box-shadow,border-color] duration-500 ease-out-expo"
+  [class]="transparent
+    ? 'bg-transparent border-b border-transparent'
+    : 'bg-base-light/85 backdrop-blur-xl border-b border-black/5 shadow-[0_8px_30px_-18px_rgba(8,39,34,0.5)]'"
 >
   <div class="w-full px-6 lg:px-12 2xl:px-20">
-    <div class="flex items-center justify-between h-16">
+    <div class="flex items-center justify-between h-20">
 
-      <!-- Logo orizzontale (UI Kit 2.1) -->
-      <a routerLink="/" class="flex items-center group" aria-label="Studio Ottico Balsi — Home">
-        <svg viewBox="0 0 560 80" class="h-9 w-auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Studio Ottico Balsi">
-          <text x="10" y="52" font-family="'Poppins','Montserrat',sans-serif" font-size="28" font-weight="300" letter-spacing="6" fill="#0C3831">STUDIO OTTICO</text>
-          <line x1="325" y1="18" x2="325" y2="62" stroke="#6E9A8E" stroke-width="2" />
-          <text x="345" y="55" font-family="'Poppins','Montserrat',sans-serif" font-size="42" font-weight="700" letter-spacing="2" fill="#2E8B75">BALSI</text>
-          <text x="512" y="32" font-family="'Poppins','Montserrat',sans-serif" font-size="12" fill="#0C3831">S</text>
-          <text x="512" y="48" font-family="'Poppins','Montserrat',sans-serif" font-size="12" fill="#0C3831">N</text>
-          <text x="512" y="64" font-family="'Poppins','Montserrat',sans-serif" font-size="12" fill="#0C3831">C</text>
+      <!-- Logo orizzontale (UI Kit 2.1) — colore adattivo via currentColor -->
+      <a
+        routerLink="/"
+        class="flex items-center group shrink-0"
+        [class]="transparent ? 'text-white' : 'text-teal-balsi'"
+        aria-label="Studio Ottico Balsi — Home"
+      >
+        <svg viewBox="0 0 560 80" class="h-8 lg:h-9 w-auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Studio Ottico Balsi">
+          <text x="10" y="52" font-family="'Hanken Grotesk',sans-serif" font-size="27" font-weight="400" letter-spacing="6" fill="currentColor">STUDIO OTTICO</text>
+          <line x1="328" y1="18" x2="328" y2="62" stroke="#2E8B75" stroke-width="2" />
+          <text x="348" y="55" font-family="'Bricolage Grotesque','Hanken Grotesk',sans-serif" font-size="42" font-weight="800" letter-spacing="1" fill="#2E8B75">BALSI</text>
+          <text x="515" y="32" font-family="'Hanken Grotesk',sans-serif" font-size="12" fill="currentColor">S</text>
+          <text x="515" y="48" font-family="'Hanken Grotesk',sans-serif" font-size="12" fill="currentColor">N</text>
+          <text x="515" y="64" font-family="'Hanken Grotesk',sans-serif" font-size="12" fill="currentColor">C</text>
         </svg>
       </a>
 
       <!-- Desktop Nav -->
-      <div class="hidden md:flex items-center gap-8">
-        <a
-          routerLink="/"
-          routerLinkActive="text-oliva-balsi"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="text-sm font-medium text-base-dark hover:text-oliva-balsi transition-colors tracking-wide"
-        >Home</a>
-        <a
-          routerLink="/catalogo"
-          routerLinkActive="text-oliva-balsi"
-          class="text-sm font-medium text-base-dark hover:text-oliva-balsi transition-colors tracking-wide"
-        >Catalogo</a>
-        <a
-          routerLink="/onboarding"
-          routerLinkActive="text-oliva-balsi"
-          class="text-sm font-medium text-base-dark hover:text-oliva-balsi transition-colors tracking-wide"
-        >Prenota Visita</a>
-        <a
-          routerLink="/contatti"
-          routerLinkActive="text-oliva-balsi"
-          class="text-sm font-medium text-base-dark hover:text-oliva-balsi transition-colors tracking-wide"
-        >Contatti</a>
+      <div class="hidden lg:flex items-center gap-9">
+        @for (item of items; track item.link) {
+          <a
+            [routerLink]="item.link"
+            routerLinkActive #rla="routerLinkActive"
+            [routerLinkActiveOptions]="{ exact: !!item.exact }"
+            class="group relative text-[13px] font-medium tracking-wide transition-colors duration-300 py-1"
+            [class]="transparent
+              ? (rla.isActive ? 'text-white' : 'text-white/70 hover:text-white')
+              : (rla.isActive ? 'text-oliva-balsi' : 'text-base-dark/80 hover:text-oliva-balsi')"
+          >
+            {{ item.label }}
+            <span
+              class="absolute -bottom-0.5 left-0 h-px bg-oliva-balsi transition-all duration-[400ms] ease-out-expo"
+              [class]="rla.isActive ? 'w-full' : 'w-0 group-hover:w-full'"
+            ></span>
+          </a>
+        }
       </div>
 
       <!-- Right Actions -->
-      <div class="flex items-center gap-3">
-        <!-- Cart -->
-        <button class="relative p-2 text-accent-copper hover:text-oliva-balsi transition-colors" aria-label="Carrello">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+      <div class="flex items-center gap-2 sm:gap-4">
+        <a
+          href="tel:+39049525625"
+          class="hidden sm:inline-flex items-center gap-2 text-[13px] font-medium tracking-wide transition-colors duration-300"
+          [class]="transparent ? 'text-white/70 hover:text-white' : 'text-base-dark/70 hover:text-oliva-balsi'"
+        >
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
           </svg>
-          <span
-            class="absolute -top-0.5 -right-0.5 bg-oliva-balsi text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
-            0
-          </span>
-        </button>
+          <span class="nums">049 525625</span>
+        </a>
 
         <!-- CTA Desktop -->
         <a
-          routerLink="/onboarding"
-          class="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-oliva-balsi text-white text-sm font-semibold tracking-wide rounded hover:bg-oliva-balsi-hover transition-colors"
+          routerLink="/contatti"
+          class="sheen hidden lg:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-semibold tracking-wide transition-all duration-300 ease-out-expo hover:-translate-y-0.5"
+          [class]="transparent
+            ? 'bg-white text-teal-balsi hover:bg-emerald-glow'
+            : 'bg-oliva-balsi text-white hover:bg-oliva-balsi-hover'"
         >
-          Prenota Visita
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          Prenota visita
+          <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
         </a>
 
         <!-- Mobile Hamburger -->
         <button
-          class="md:hidden p-2 text-base-dark hover:text-oliva-balsi transition-colors"
+          class="lg:hidden inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-full transition-colors"
+          [class]="transparent ? 'text-white hover:bg-white/10' : 'text-teal-balsi hover:bg-teal-balsi/5'"
           (click)="toggleMobile()"
-          aria-label="Menu"
+          [attr.aria-expanded]="mobileOpen()"
+          aria-label="Apri menu"
         >
-          @if (!mobileOpen()) {
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          } @else {
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          }
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
         </button>
       </div>
     </div>
-
-    <!-- Mobile Menu -->
-    @if (mobileOpen()) {
-      <div class="md:hidden border-t border-gray-100 py-4 flex flex-col gap-4">
-        <a routerLink="/" (click)="toggleMobile()" class="text-sm font-medium text-base-dark hover:text-oliva-balsi transition-colors px-2">Home</a>
-        <a routerLink="/catalogo" (click)="toggleMobile()" class="text-sm font-medium text-base-dark hover:text-oliva-balsi transition-colors px-2">Catalogo</a>
-        <a routerLink="/onboarding" (click)="toggleMobile()" class="text-sm font-medium text-base-dark hover:text-oliva-balsi transition-colors px-2">Prenota Visita</a>
-        <a routerLink="/contatti" (click)="toggleMobile()" class="text-sm font-medium text-base-dark hover:text-oliva-balsi transition-colors px-2">Contatti</a>
-        <a
-          routerLink="/onboarding"
-          (click)="toggleMobile()"
-          class="mx-2 text-center px-4 py-2.5 bg-oliva-balsi text-white text-sm font-semibold rounded hover:bg-oliva-balsi-hover transition-colors"
-        >Prenota Visita</a>
-      </div>
-    }
   </div>
 </nav>
+
+<!-- ── Mobile Overlay ────────────────────────────────────────────────── -->
+@if (mobileOpen()) {
+  <div
+    class="fixed inset-0 z-[60] lg:hidden flex flex-col bg-gradient-to-b from-teal-balsi to-forest-900 text-white nav-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menu di navigazione"
+  >
+    <!-- glow decorativo -->
+    <div class="lens-glow absolute -top-24 -right-16 w-72 h-72 rounded-full opacity-40 pointer-events-none" aria-hidden="true"></div>
+
+    <div class="flex items-center justify-between h-20 px-6">
+      <span class="font-display text-xl font-extrabold tracking-tight">
+        <span class="text-white/60 font-sans font-normal text-sm tracking-[0.3em] uppercase">Studio Ottico</span>
+        <span class="ml-2 text-emerald-glow">BALSI</span>
+      </span>
+      <button
+        class="inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-full text-white hover:bg-white/10 transition-colors"
+        (click)="closeMobile()"
+        aria-label="Chiudi menu"
+      >
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <nav class="flex-1 flex flex-col justify-center px-8 gap-1">
+      @for (item of items; track item.link; let i = $index) {
+        <a
+          [routerLink]="item.link"
+          (click)="closeMobile()"
+          class="nav-overlay-item group flex items-center justify-between py-4 border-b border-white/10"
+          [style.--reveal-delay.ms]="80 + i * 70"
+        >
+          <span class="font-display text-3xl font-bold tracking-tight">{{ item.label }}</span>
+          <svg class="h-5 w-5 text-emerald-glow opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      }
+    </nav>
+
+    <div class="px-8 pb-10">
+      <a
+        routerLink="/contatti"
+        (click)="closeMobile()"
+        class="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-full bg-oliva-balsi text-white font-semibold tracking-wide hover:bg-oliva-balsi-hover transition-colors"
+      >
+        Prenota una visita
+      </a>
+      <a href="tel:+39049525625" class="block text-center mt-4 text-sm text-white/60 nums">+39 049 525625</a>
+    </div>
+  </div>
+}

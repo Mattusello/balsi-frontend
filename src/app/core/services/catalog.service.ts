@@ -10,7 +10,11 @@ export class CatalogService {
   }
 
   getBestsellers(): Observable<Glass[]> {
-    return of(GLASSES_MOCK.slice(0, 3)).pipe(delay(600));
+    const ids = ['phantom-noir', 'velocity-sport', 'aviator-legend', 'riviera-donna'];
+    const list = ids
+      .map(id => GLASSES_MOCK.find(g => g.id === id))
+      .filter((g): g is Glass => !!g);
+    return of(list).pipe(delay(600));
   }
 
   getByCollezione(collezione?: Collezione | null): Observable<Glass[]> {

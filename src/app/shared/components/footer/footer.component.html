@@ -1,49 +1,95 @@
-<footer class="bg-base-dark text-white">
-  <div class="w-full px-6 lg:px-12 2xl:px-20 py-14">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+<footer class="relative overflow-hidden bg-forest-900 text-white">
+  <!-- Rifrazione decorativa -->
+  <div class="lens-glow absolute -top-32 right-[8%] w-[28rem] h-[28rem] rounded-full opacity-25 pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-oliva-balsi/60 to-transparent" aria-hidden="true"></div>
 
-      <!-- Brand — logo impilato negativo (UI Kit 2.3 / 3.2) -->
+  <!-- Newsletter band -->
+  <div class="relative border-b border-white/10">
+    <div class="w-full px-6 lg:px-12 2xl:px-20 py-14 grid lg:grid-cols-2 gap-10 items-center">
       <div>
-        <svg viewBox="0 0 320 200" class="h-24 w-auto mb-4" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Studio Ottico Balsi">
-          <text x="150" y="45" font-family="'Poppins','Montserrat',sans-serif" font-size="32" font-weight="300" letter-spacing="12" fill="#FFFFFF" text-anchor="middle">STUDIO</text>
-          <text x="150" y="100" font-family="'Poppins','Montserrat',sans-serif" font-size="32" font-weight="300" letter-spacing="12" fill="#FFFFFF" text-anchor="middle">OTTICO</text>
-          <text x="135" y="170" font-family="'Poppins','Montserrat',sans-serif" font-size="54" font-weight="700" letter-spacing="4" fill="#2E8B75" text-anchor="middle">BALSI</text>
-          <text x="262" y="135" font-family="'Poppins','Montserrat',sans-serif" font-size="14" fill="#FFFFFF">S</text>
-          <text x="262" y="153" font-family="'Poppins','Montserrat',sans-serif" font-size="14" fill="#FFFFFF">N</text>
-          <text x="262" y="171" font-family="'Poppins','Montserrat',sans-serif" font-size="14" fill="#FFFFFF">C</text>
+        <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-tight leading-[1.05]">
+          Resta in contatto<br>con lo Studio.
+        </h2>
+        <p class="mt-3 text-white/55 max-w-md leading-relaxed">
+          Nuovi arrivi, promozioni e consigli dai nostri ottici. Niente spam, solo cose che vale la pena vedere.
+        </p>
+      </div>
+      <form class="flex flex-col sm:flex-row gap-3 lg:justify-end" (submit)="$event.preventDefault()">
+        <label class="sr-only" for="nl-email">Indirizzo email</label>
+        <input
+          id="nl-email"
+          type="email"
+          required
+          placeholder="La tua email"
+          class="flex-1 sm:max-w-xs px-5 py-3.5 rounded-full bg-white/8 border border-white/15 text-white placeholder:text-white/40 focus:border-oliva-balsi focus:bg-white/12 transition-colors outline-none"
+        />
+        <button
+          type="submit"
+          class="sheen px-7 py-3.5 rounded-full bg-oliva-balsi text-white font-semibold tracking-wide hover:bg-oliva-balsi-hover transition-colors shrink-0"
+        >
+          Iscrivimi
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="relative w-full px-6 lg:px-12 2xl:px-20 py-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-8">
+
+      <!-- Brand — logo impilato negativo (UI Kit 2.3) -->
+      <div class="col-span-2 md:col-span-1">
+        <svg viewBox="0 0 320 200" class="h-28 w-auto -ml-1" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Studio Ottico Balsi">
+          <text x="150" y="45" font-family="'Hanken Grotesk',sans-serif" font-size="30" font-weight="400" letter-spacing="12" fill="#FFFFFF" text-anchor="middle">STUDIO</text>
+          <text x="150" y="100" font-family="'Hanken Grotesk',sans-serif" font-size="30" font-weight="400" letter-spacing="12" fill="#FFFFFF" text-anchor="middle">OTTICO</text>
+          <text x="138" y="172" font-family="'Bricolage Grotesque','Hanken Grotesk',sans-serif" font-size="54" font-weight="800" letter-spacing="3" fill="#2E8B75" text-anchor="middle">BALSI</text>
+          <text x="262" y="136" font-family="'Hanken Grotesk',sans-serif" font-size="14" fill="#FFFFFF">S</text>
+          <text x="262" y="154" font-family="'Hanken Grotesk',sans-serif" font-size="14" fill="#FFFFFF">N</text>
+          <text x="262" y="172" font-family="'Hanken Grotesk',sans-serif" font-size="14" fill="#FFFFFF">C</text>
         </svg>
-        <p class="text-sm text-gray-400 leading-relaxed max-w-xs">
-          Ottica premium dal 1998. Selezione esclusiva di occhiali da sole, da vista e sportivi.
+        <p class="mt-4 text-sm text-white/50 leading-relaxed max-w-xs">
+          Laboratorio ottico e selezione premium di montature. Un mestiere di precisione, dal 1990.
         </p>
       </div>
 
       <!-- Nav -->
       <div>
-        <h4 class="text-xs font-semibold tracking-[0.2em] uppercase text-gray-500 mb-4">Navigazione</h4>
-        <ul class="space-y-2.5">
-          <li><a routerLink="/" class="text-sm text-gray-400 hover:text-oliva-balsi transition-colors">Home</a></li>
-          <li><a routerLink="/catalogo" class="text-sm text-gray-400 hover:text-oliva-balsi transition-colors">Catalogo</a></li>
-          <li><a routerLink="/onboarding" class="text-sm text-gray-400 hover:text-oliva-balsi transition-colors">Prenota Visita</a></li>
-          <li><a routerLink="/contatti" class="text-sm text-gray-400 hover:text-oliva-balsi transition-colors">Contatti</a></li>
+        <h3 class="text-[11px] font-semibold tracking-[0.22em] uppercase text-emerald-glow/80 mb-5">Naviga</h3>
+        <ul class="space-y-3">
+          <li><a routerLink="/" class="text-sm text-white/65 hover:text-white transition-colors">Home</a></li>
+          <li><a routerLink="/catalogo" class="text-sm text-white/65 hover:text-white transition-colors">Collezioni</a></li>
+          <li><a routerLink="/onboarding" class="text-sm text-white/65 hover:text-white transition-colors">Trova la montatura</a></li>
+          <li><a routerLink="/contatti" class="text-sm text-white/65 hover:text-white transition-colors">Contatti</a></li>
         </ul>
       </div>
 
-      <!-- Contatti -->
+      <!-- Servizi -->
       <div>
-        <h4 class="text-xs font-semibold tracking-[0.2em] uppercase text-gray-500 mb-4">Contatti</h4>
-        <ul class="space-y-2.5 text-sm text-gray-400">
-          <li>Via della Moda 12, Milano</li>
-          <li>info&#64;balsi.it</li>
-          <li>+39 02 1234 5678</li>
+        <h3 class="text-[11px] font-semibold tracking-[0.22em] uppercase text-emerald-glow/80 mb-5">Servizi</h3>
+        <ul class="space-y-3 text-sm text-white/65">
+          <li>Esame della vista</li>
+          <li>Lenti su misura</li>
+          <li>Riparazioni in giornata</li>
+          <li>Lavorazioni speciali</li>
         </ul>
+      </div>
+
+      <!-- Sede principale -->
+      <div>
+        <h3 class="text-[11px] font-semibold tracking-[0.22em] uppercase text-emerald-glow/80 mb-5">Sede principale</h3>
+        <address class="not-italic space-y-3 text-sm text-white/65 leading-relaxed">
+          <p>Via Colli Euganei, 96<br>35041 Battaglia Terme (PD)</p>
+          <p><a href="tel:+39049525625" class="hover:text-white transition-colors nums">+39 049 525625</a></p>
+          <p><a href="mailto:info@otticabalsi.it" class="hover:text-white transition-colors">info&#64;otticabalsi.it</a></p>
+        </address>
       </div>
     </div>
 
-    <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p class="text-xs text-gray-600">© 2025 Balsi Optical Studio. Tutti i diritti riservati.</p>
-      <div class="flex gap-5 text-xs text-gray-600">
-        <a href="#" class="hover:text-gray-400 transition-colors">Privacy Policy</a>
-        <a href="#" class="hover:text-gray-400 transition-colors">Cookie Policy</a>
+    <div class="border-t border-white/10 mt-14 pt-7 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-white/40">© 2026 Studio Ottico Balsi s.n.c. — Tutti i diritti riservati. P.IVA 00000000000</p>
+      <div class="flex gap-6 text-xs text-white/40">
+        <a href="#" class="hover:text-white/70 transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white/70 transition-colors">Cookie Policy</a>
       </div>
     </div>
   </div>

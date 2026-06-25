@@ -1,18 +1,20 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 interface Store {
   name: string;
   address: string;
   phone: string;
   phoneRaw: string;
+  flagship?: boolean;
   mapUrl: SafeResourceUrl;
 }
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [],
+  imports: [RevealDirective],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './contact.component.html',
 })
@@ -31,6 +33,7 @@ export class ContactComponent {
         address: 'Via Colli Euganei, 96 — 35041 Battaglia Terme (PD)',
         phone: '+39 049 525625',
         phoneRaw: '+39049525625',
+        flagship: true,
         mapUrl: map('Via Colli Euganei 96, 35041 Battaglia Terme PD'),
       },
       {

@@ -134,4 +134,93 @@ export const GLASSES_MOCK: Glass[] = [
     description:
       'Resistente, leggera e flessibile: pensata per i più piccoli. Materiali anallergici e lenti infrangibili per il gioco di ogni giorno.',
   },
+  {
+    id: 'velocity-sport',
+    name: 'Velocity Sport',
+    brand: 'Balsi Performance',
+    price: 245,
+    category: 'sport',
+    collezione: 'uomo',
+    image_url: U('photo-1577803645773-f96470509666'),
+    hover_image_url: U('photo-1572635196237-14b3f281503f'),
+    gallery: [
+      U('photo-1577803645773-f96470509666'),
+      U('photo-1572635196237-14b3f281503f'),
+      U('photo-1511499767150-a48a237f0083'),
+    ],
+    colors: [
+      { name: 'Nero Matte / Specchio', swatch: '#101418', image: U('photo-1577803645773-f96470509666') },
+      { name: 'Verde Prizm', swatch: '#2E8B75', image: U('photo-1572635196237-14b3f281503f') },
+    ],
+    size: '62-15',
+    montatura: 'Grilamid avvolgente ultraleggero',
+    lenti: 'Specchiata polarizzata — categoria 3',
+    geofit: 'Naselli e terminali in gomma antiscivolo',
+    description:
+      'Pensata per chi non si ferma. Montatura avvolgente in Grilamid, lenti specchiate polarizzate ad alto contrasto e grip antisudore: la precisione ottica incontra la performance.',
+  },
+  {
+    id: 'riviera-donna',
+    name: 'Riviera',
+    brand: 'Balsi Gold Edition',
+    price: 199,
+    category: 'sole',
+    collezione: 'donna',
+    image_url: U('photo-1620231150904-a86b9802656a'),
+    hover_image_url: U('photo-1483985988355-763728e1935b'),
+    gallery: [
+      U('photo-1620231150904-a86b9802656a'),
+      U('photo-1483985988355-763728e1935b'),
+      U('photo-1574258495973-f010dfbb5371'),
+    ],
+    colors: [
+      { name: 'Miele / Marrone Sfumato', swatch: '#b9822f', image: U('photo-1620231150904-a86b9802656a') },
+      { name: 'Avana Chiaro', swatch: '#9a6b3f', image: U('photo-1483985988355-763728e1935b') },
+    ],
+    size: '54-18',
+    montatura: 'Acetato avana, profilo oversize',
+    lenti: 'Marrone sfumato — categoria 3',
+    geofit: 'Ponte alto, fit comfort',
+    description:
+      'Una silhouette oversize che cita la dolce vita mediterranea. Acetato avana lavorato a mano e lenti sfumate calde per uno sguardo morbido e luminoso.',
+  },
+  {
+    id: 'archivio-vista',
+    name: 'Archivio 01',
+    brand: 'Balsi Studio',
+    price: 189,
+    category: 'vista',
+    collezione: 'uomo',
+    image_url: U('photo-1473496169904-658ba7c44d8a'),
+    hover_image_url: U('photo-1511499767150-a48a237f0083'),
+    gallery: [
+      U('photo-1473496169904-658ba7c44d8a'),
+      U('photo-1511499767150-a48a237f0083'),
+      U('photo-1556306535-0f09a537f0a3'),
+    ],
+    colors: [
+      { name: 'Tartaruga Scura', swatch: '#4a2f1a', image: U('photo-1473496169904-658ba7c44d8a') },
+      { name: 'Nero Opaco', swatch: '#1a1a1a', image: U('photo-1511499767150-a48a237f0083') },
+    ],
+    size: '49-21',
+    montatura: 'Acetato Mazzucchelli, panto keyhole',
+    lenti: 'Neutre — predisposte per gradazione',
+    geofit: 'Ponte a chiave, fit classico',
+    description:
+      'Un panto dal sapore d\'archivio, riletto con proporzioni contemporanee. Acetato italiano Mazzucchelli e ponte a chiave: un classico che non passa di moda.',
+  },
+];
+
+/** Maison distribuite in negozio — usate nel marquee del brand wall. */
+export const MAISONS: string[] = [
+  'Ray-Ban',
+  'Oakley',
+  'Persol',
+  'Tom Ford',
+  'Saint Laurent',
+  'Gucci',
+  'Prada',
+  'Maui Jim',
+  'Lindberg',
+  'Moscot',
 ];
